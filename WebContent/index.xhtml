@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head></h:head>
+<body>
+
+	<h:panelGroup rendered="#{empty crudJsfBean.listaEstudante}">
+		<p>Nenhum Estudante Cadastrado. Por favor Cadastrar</p>
+	</h:panelGroup>
+
+	<h:panelGroup rendered="#{!crudJsfBean.edit}">
+		<h3>Adicionar Estudante</h3>
+		<h:form>
+			<h:outputText value="Nome: " />
+			<h:inputText disabled="true" value="#{crudJsfBean.estudante.nome}" />
+			<span />
+			<h:commandButton action="#{crudJsfBean.adicionar}" value="Adicionar" />
+		</h:form>
+
+	</h:panelGroup>
+
+	<h:panelGroup rendered="#{crudJsfBean.edit}">
+
+		<h:form>
+
+			<h3>Editar Estudante #{crudJsfBean.estudante.id}</h3>
+			<h:outputText value="Nome: " />
+			<h:inputText value="#{crudJsfBean.estudante.nome}" />
+			<span />
+			<h:commandButton action="#{crudJsfBean.salvarEdicao}" value="Salvar" />
+			<span />
+			<h:commandButton action="#{crudJsfBean.cancelarEdicao}" value="Cancelar" />
+		</h:form>
+	</h:panelGroup>
+
+	<h3>Lista Estudantes</h3>
+
+	<h:form rendered="#{not empty crudJsfBean.listaEstudante}">
+
+		<h:dataTable value="#{crudJsfBean.listaEstudante}" var="estudante">
+
+			<h:column>
+				<f:facet name="header">ID</f:facet>#{estudante.id}
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Nome</f:facet>#{estudante.nome}
+			</h:column>
+
+			<h:column>
+				<h:commandButton action="#{crudJsfBean.editar(estudante)}" value="Editar" />
+			</h:column>
+			
+			<h:column>
+				<h:commandButton action="#{crudJsfBean.apagar(estudante)}" value="Apagar" />
+			</h:column>
+
+		</h:dataTable>
+
+
+	</h:form>
+
+</body>
+</html>

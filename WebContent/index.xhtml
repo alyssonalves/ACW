@@ -7,12 +7,11 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-<h:outputScript library="primefaces"
+	<h:outputScript library="primefaces"
 		name="#{request.contextPath}/js/jquery.min.js" />
 	<script type="text/javascript"
 		src="main/webapp/resources/js/html2canvas.js"></script>
 	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<meta name="apple-mobile-web-app-capable" content="yes" />
@@ -21,90 +20,93 @@
 	<link
 		href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600"
 		rel="stylesheet" />
-	<h:outputStylesheet library="css" name="font-awesome.css" />
-	<h:outputStylesheet library="css" name="custom.css" />
 
-	<script type="text/javascript">
-
-function customExtender() {
-	this.cfg.highlighter = {
-		show: true,
-        tooltipAxes: 'y'
-    }
-};
-</script>
 </h:head>
+<body>
+	<div class="main">
+		<div class="main-inner">
+			<div class="container">
+				<div class="row">
+					<div class="span12">
+						<div class="widget">
+							<div class="widget-content">
 
-<h:body>
+								<h:form id="form">
 
+									<p:fieldset>
 
-	<h:form id="formCrud">
+										<h:panelGrid rendered="#{!crudJsfBean.edit}" columns="2">
 
-		<h:panelGroup rendered="#{empty crudJsfBean.listaEstudante}">
-			<p>Nenhum Estudante Cadastrado. Por favor Cadastrar</p>
-		</h:panelGroup>
+											<h:outputText value="Nome: " />
+											<p:inputText value="#{crudJsfBean.estudante.nome}" />
+											<span />
+											<p:commandButton actionListener="#{crudJsfBean.adicionar}" value="Adicionar" update="@all" ajax="false" />
 
-		<h:panelGroup rendered="#{!crudJsfBean.edit}">
-			<h3>Adicionar Estudante</h3>
+										</h:panelGrid>
 
-			<h:outputText value="Nome: " />
-			<p:inputText value="#{crudJsfBean.estudante.nome}" />
-			<span />
-			<p:commandButton actionListener="#{crudJsfBean.adicionar}"
-				value="Adicionar" update=":formListagem" />
+										<h:panelGrid rendered="#{crudJsfBean.edit}" columns="2">
 
-		</h:panelGroup>
+											<h:outputText value="ID: " />
+											<p:inputText value="#{crudJsfBean.estudante.id}" disabled="true" />
+											<h:outputText value="Nome: " />
+											<p:inputText value="#{crudJsfBean.estudante.nome}" />
+											
+										</h:panelGrid>
+										
+										<h:panelGrid rendered="#{crudJsfBean.edit}" >
+											<p:commandButton actionListener="#{crudJsfBean.salvarEdicao}" value="Salvar" />
+											<p:commandButton actionListener="#{crudJsfBean.cancelarEdicao}" value="Cancelar" />
+										</h:panelGrid>
+											
+										
+									
+									</p:fieldset>
 
-		<h:panelGroup rendered="#{crudJsfBean.edit}">
+								</h:form>
 
-			<h3>Editar Estudante #{crudJsfBean.estudante.id}</h3>
-			<h:outputText value="Nome: " />
-			<h:inputText value="#{crudJsfBean.estudante.nome}" />
-			<span />
-			<h:commandButton action="#{crudJsfBean.salvarEdicao}" value="Salvar" />
-			<span />
-			<h:commandButton action="#{crudJsfBean.cancelarEdicao}"
-				value="Cancelar" />
+								<h:form id="formList">
+								
+									<p:fieldset>
 
-		</h:panelGroup>
+									<h3>Lista Estudantes</h3>
+									<p:dataTable id="estudante" value="#{crudJsfBean.listaEstudante}" var="estudante" emptyMessage="Nenhum registro encontrado">
 
-	</h:form>
+										<p:column headerText="ID">
+											<h:outputText value="#{estudante.id}" />
+										</p:column>
 
-	<h:form id="formListagem">
+										<p:column headerText="Nome">
+											<h:outputText value="#{estudante.nome}" />
+										</p:column>
 
-		<h3>Lista Estudantes</h3>
+										<p:column exportable="false">
+											<p:commandButton action="#{crudJsfBean.editar(estudante)}" value="Editar" />
+										</p:column>
 
-		<p:dataTable id="estudante" value="#{crudJsfBean.listaEstudante}"
-			var="estudante">
+										<p:column exportable="false">
+											<p:commandButton action="#{crudJsfBean.apagar(estudante)}" value="Apagar" />
+										</p:column>
 
-			<p:column headerText="ID">
-				<h:outputText value="#{estudante.id}" />
-			</p:column>
-
-			<p:column headerText="Nome">
-				<h:outputText value="#{estudante.nome}" />
-			</p:column>
-
-			<p:column>
-				<h:commandButton action="#{crudJsfBean.editar(estudante)}"
-					value="Editar" />
-			</p:column>
-
-			<p:column>
-				<h:commandButton action="#{crudJsfBean.apagar(estudante)}"
-					value="Apagar" />
-			</p:column>
-
-		</p:dataTable>
-
-		<h3>Exportar Dados</h3>
-		<h:commandLink style="text-align: right;">
-			<h:graphicImage library="img" name="logo_excel.png" />
-			<p:dataExporter type="xls" target="estudante" fileName="Listagem"
-				pageOnly="true" />
-		</h:commandLink>
-	</h:form>
-
-</h:body>
-
+									</p:dataTable>
+									<h3>Exportar</h3>
+									<h:commandLink>
+										<h:graphicImage library="img" name="logo_excel.png" />
+										<p:dataExporter type="xls" target="estudante" fileName="listagem" pageOnly="true" />
+									</h:commandLink>
+									<h:commandLink>
+										<h:graphicImage library="img" name="logo_pdf.png" />
+										<p:dataExporter type="pdf" target="estudante" fileName="listagem" pageOnly="true" />
+									</h:commandLink>
+									
+									</p:fieldset>
+									
+								</h:form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
 </html>

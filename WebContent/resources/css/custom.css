@@ -1,0 +1,74 @@
+/* icone menu */
+/*
+#formMenu .ui-state-hover .ui-icon, #formMenu .ui-state-focus .ui-icon {
+    background-image: none;
+}
+#formMenu .ui-widget-content .ui-icon {
+    background-image: none;
+}
+#formMenu .ui-icon {
+    background-image: none;
+}
+
+#formMenu .ui-state-hover, #formMenu .ui-widget-content .ui-state-hover, #formMenu .ui-widget-header .ui-state-hover, #formMenu .ui-state-focus, #formMenu .ui-widget-content .ui-state-focus, #formMenu .ui-widget-header .ui-state-focus  {
+    background-image: none;
+}
+*/
+/* borda menu */
+/*#formMenu .ui-state-hover .ui-icon, #formMenu .ui-state-focus .ui-icon {    
+    border: 1px solid #5FA26B;
+    width: 90%;
+    background-image: none;
+    padding: 4px;
+    border-radius: 6px;
+    margin: -3px;
+    margin-top: 0;
+}*/
+/* mostrar icone */
+.ui-menu .ui-icon {
+  background-repeat:no-repeat no-repeat;
+  display:block;
+  overflow:hidden;
+  text-indent:-99999px;
+  position:relative;
+  left:auto;
+  top:auto;
+}
+
+/*tamanho submenu */
+.ui-menu .ui-menu-parent .ui-menu-child{
+	width: 16.5em !important;
+}
+
+/*espacamento formulario */
+.ui-widget .ui-widget {
+ margin-left: 4px;
+ margin-right: 6px;
+}
+
+.largura_label{
+/*width: 100px;*/
+float: left;
+/*text-align: right;*/
+margin-left:16px;
+}
+
+.largura_data{
+width:175px;	
+}
+#formMenu .ui-widget-content{
+background:#B2E0C0;
+}
+
+.widget-content, .widget{
+overflow:visible; 
+}
+
+.widget-content{
+min-height: 350px;
+}
+
+
+.ajuste_margem{
+margin-left:8px;
+}

@@ -2,10 +2,23 @@ package br.com.uipe.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+import org.hibernate.annotations.Columns;
+
+@Entity
 public class Estudante implements Serializable{
 
+	@Id
+	@GeneratedValue
 	private Long id;
+	
+	@Column(name="nome")
 	private String nome;
+	
 	
 	
 	public Estudante(Long id, String nome) {
@@ -15,8 +28,6 @@ public class Estudante implements Serializable{
 	
 	public Estudante() {
 	}
-	
-	
 	
 	public Long getId() {
 		return id;

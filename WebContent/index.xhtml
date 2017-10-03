@@ -37,24 +37,40 @@
 
 										<h:panelGrid rendered="#{!crudJsfBean.edit}" columns="2">
 
+											<h:outputText value="CPF: " />
+											<p:inputMask mask="999.999.999-99" value="#{crudJsfBean.estudante.cpf}" />
+											
 											<h:outputText value="Nome: " />
 											<p:inputText value="#{crudJsfBean.estudante.nome}" />
-											<span />
+											
+											<h:outputText value="Data Nascimento: " />
+											<p:calendar value="#{crudJsfBean.estudante.dataNascimento}" />
+											
+											<h:outputText value="Telefone: " />
+											<p:inputMask mask="(99)9999-9999?9" value="#{crudJsfBean.estudante.telefone}" />
+											
 											<p:commandButton actionListener="#{crudJsfBean.adicionar}" value="Adicionar" update="@all" ajax="false" />
 
 										</h:panelGrid>
 
 										<h:panelGrid rendered="#{crudJsfBean.edit}" columns="2">
-
-											<h:outputText value="ID: " />
-											<p:inputText value="#{crudJsfBean.estudante.id}" disabled="true" />
+										
+											<h:outputText value="CPF: " disabled="true" />
+											<p:inputMask mask="999.999.999-99" value="#{crudJsfBean.estudante.cpf}" />
+											
 											<h:outputText value="Nome: " />
 											<p:inputText value="#{crudJsfBean.estudante.nome}" />
 											
+											<h:outputText value="Data Nascimento: " />
+											<p:calendar value="#{crudJsfBean.estudante.dataNascimento}" />
+											
+											<h:outputText value="Telefone: " />
+											<p:inputMask mask="(99)9999-9999?9" value="#{crudJsfBean.estudante.telefone}" />
+
 										</h:panelGrid>
 										
 										<h:panelGrid rendered="#{crudJsfBean.edit}" >
-											<p:commandButton actionListener="#{crudJsfBean.salvarEdicao}" value="Salvar" />
+											<p:commandButton actionListener="#{crudJsfBean.salvarEdicao}" value="Salvar" update="@all" ajax="false"/>
 											<p:commandButton actionListener="#{crudJsfBean.cancelarEdicao}" value="Cancelar" />
 										</h:panelGrid>
 											
@@ -71,20 +87,30 @@
 									<h3>Lista Estudantes</h3>
 									<p:dataTable id="estudante" value="#{crudJsfBean.listaEstudante}" var="estudante" emptyMessage="Nenhum registro encontrado">
 
-										<p:column headerText="ID">
-											<h:outputText value="#{estudante.id}" />
+										<p:column headerText="CPF">
+											<h:outputText value="#{estudante.cpf}" />
 										</p:column>
 
 										<p:column headerText="Nome">
 											<h:outputText value="#{estudante.nome}" />
 										</p:column>
+										
+										<p:column headerText="Data Nascimento">
+											<h:outputText value="#{estudante.dataNascimento}" >
+												 <f:convertDateTime pattern="dd/MM/yyyy"/>
+											</h:outputText>
+										</p:column>
 
-										<p:column exportable="false">
-											<p:commandButton action="#{crudJsfBean.editar(estudante)}" value="Editar" />
+										<p:column headerText="Telefone">
+											<h:outputText value="#{estudante.telefone}" />
 										</p:column>
 
 										<p:column exportable="false">
-											<p:commandButton action="#{crudJsfBean.apagar(estudante)}" value="Apagar" />
+											<p:commandButton actionListener="#{crudJsfBean.editar(estudante)}" value="Editar" />
+										</p:column>
+
+										<p:column exportable="false">
+											<p:commandButton actionListener="#{crudJsfBean.apagar(estudante)}" value="Apagar" />
 										</p:column>
 
 									</p:dataTable>
